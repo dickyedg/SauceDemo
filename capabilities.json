@@ -1,0 +1,8 @@
+{
+  "platform" : "Android",
+  "udid" : "emulator-5554",
+  "deviceName" : "DickyTest2",
+  "browserType" : "Chrome",
+  "automationName" : "UiAutomator2",
+  "localHostUrl" : "http://127.0.0.1:4723/wd/hub"
+}

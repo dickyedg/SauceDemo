@@ -15,6 +15,7 @@ dependencies {
     implementation 'org.seleniumhq.selenium:selenium-java:4.9.1'
     implementation 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
 }
 
 task tests(type: Test) {

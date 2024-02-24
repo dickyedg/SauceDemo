@@ -1,15 +1,16 @@
 package purchaseFlow;
 
+import dataProvider.UserDataProvider;
 import testBase.TestBase;
 import org.testng.annotations.Test;
 
 public class PurchaseFlowTest extends TestBase {
 
-    @Test(description = "This test case is to verify E2E positive purchase flow")
-    public void verifyPurchaseFlow() throws InterruptedException {
+    @Test(dataProvider = "UserDataProvider", dataProviderClass = UserDataProvider.class,description = "This test case is to verify E2E positive purchase flow")
+    public void verifyPurchaseFlow(String username, String password) throws InterruptedException {
         final int TOTAL_ITEMS_TO_ADD = 2;
 
-        pages.loginPage().fillLoginDetails("standard_user", "secret_sauce");
+        pages.loginPage().fillLoginDetails(username, password);
         pages.loginPage().clickOnLoginButton();
 
         for(int i = 1 ; i <= TOTAL_ITEMS_TO_ADD; i++) {

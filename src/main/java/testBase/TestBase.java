@@ -1,5 +1,7 @@
 package testBase;
 
+import Util.JSONUtil;
+import com.fasterxml.jackson.databind.JsonNode;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileBrowserType;
@@ -17,19 +19,24 @@ public class TestBase {
     public static AppiumDriver driver;
     public static Pages pages;
 
+    final String capabilityFileName = "capabilities.json";
+    final String sauceDemoUrl = "http://saucedemo.com";
+
     @BeforeMethod
     public void setup() throws MalformedURLException {
         DesiredCapabilities dc = new DesiredCapabilities();
-        dc.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
-        dc.setCapability(MobileCapabilityType.UDID, "emulator-5554");
-        dc.setCapability(MobileCapabilityType.DEVICE_NAME, "DickyTest2");
-        // This capability will open the Chrome browser instead of Native app.
-        dc.setCapability(MobileCapabilityType.BROWSER_NAME, MobileBrowserType.CHROME);
-        dc.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
+        JSONUtil jsonUtil = new JSONUtil();
 
-        driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), dc);
+        JsonNode jsonNode = jsonUtil.readJSONFromFile(capabilityFileName);
+        dc.setCapability(MobileCapabilityType.PLATFORM_NAME, jsonNode.get("platform").asText());
+        dc.setCapability(MobileCapabilityType.UDID, jsonNode.get("udid").asText());
+        dc.setCapability(MobileCapabilityType.DEVICE_NAME, jsonNode.get("deviceName").asText());
+        dc.setCapability(MobileCapabilityType.BROWSER_NAME, jsonNode.get("browserType").asText());
+        dc.setCapability(MobileCapabilityType.AUTOMATION_NAME, jsonNode.get("automationName").asText());
+
+        driver = new AndroidDriver(new URL(jsonNode.get("localHostUrl").asText()), dc);
         driver.manage().timeouts().implicitlyWait(30L, TimeUnit.SECONDS);
-        driver.get("http://saucedemo.com");
+        driver.get(sauceDemoUrl);
     }
 
     @BeforeMethod(alwaysRun = true, dependsOnMethods = "setup")
