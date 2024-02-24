@@ -1,6 +1,5 @@
 package purchaseFlow;
 
-import io.appium.java_client.android.AndroidDriver;
 import testBase.TestBase;
 import org.testng.annotations.Test;
 
@@ -8,11 +7,28 @@ public class PurchaseFlowTest extends TestBase {
 
     @Test(description = "This test case is to verify E2E positive purchase flow")
     public void verifyPurchaseFlow() throws InterruptedException {
-        //((AndroidDriver) driver).context("CHROMIUM");
+        final int TOTAL_ITEMS_TO_ADD = 2;
+
         pages.loginPage().fillLoginDetails("standard_user", "secret_sauce");
         pages.loginPage().clickOnLoginButton();
 
-        pages.showcasePage().clickOnProductNameOnIndex(1);
-        Thread.sleep(10000);
+        for(int i = 1 ; i <= TOTAL_ITEMS_TO_ADD; i++) {
+            pages.showcasePage().clickOnProductNameOnIndex(i);
+            pages.itemDetailsPage().clickAddToCart();
+            pages.itemDetailsPage().tapBackButton();
+        }
+
+        pages.showcasePage().clickOnShoppingCartButton();
+        pages.cartPage().verifyTotalItems(TOTAL_ITEMS_TO_ADD);
+        double totalPriceInCart = pages.cartPage().calculateAllPrices();
+        pages.cartPage().clickCheckoutButton();
+
+        pages.addressDetailPage().fillInAddressDetails();
+        pages.addressDetailPage().clickContinueButton();
+        pages.checkoutPreviewPage().verifySubTotalPriceMatchedWithCartPrice(totalPriceInCart);
+        pages.checkoutPreviewPage().verifyTotalPrices();
+        pages.checkoutPreviewPage().clickFinishButton();
+
+        pages.checkoutCompletionPage().verifyCheckoutCompletionIsShowing();
     }
 }

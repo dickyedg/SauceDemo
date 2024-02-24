@@ -20,6 +20,9 @@ public class ShowcasePage extends BasePage<ShowcasePage> {
     @FindBy(id = "add-to-cart-sauce-labs-backpack")
     private WebElement addToCartButton;
 
+    @FindBy(id = "shopping_cart_container")
+    private WebElement shoppingCartButton;
+
     private String productNameIdentifier;
     public ShowcasePage(AppiumDriver driver) {
         super(driver);
@@ -29,6 +32,10 @@ public class ShowcasePage extends BasePage<ShowcasePage> {
         productNameIdentifier = "(//div[@id=\"inventory_container\"])[2]/div/div["+ index + "]/div[2]/div[1]/a/div";
         WebElement productNameElement = driver.findElement(By.xpath(productNameIdentifier));
         mobileActions.click(productNameElement);
+    }
+
+    public void clickOnShoppingCartButton() {
+        mobileActions.click(shoppingCartButton);
     }
 
     @Override

@@ -13,12 +13,14 @@ public class MobileElementMethods {
         this.waiter = new DriverWaiter(driver);
     }
 
+    public String getText(WebElement element) {
+        return waiter.waitForVisibilityOf(element).getText();
+    }
+
     public boolean isElementVisible(WebElement element) {
         try {
-            boolean isVisible = (boolean) ((JavascriptExecutor) driver).executeScript(
-                    "return window.getComputedStyle(arguments[0]).getPropertyValue('display') !== 'none'", element);
-            return isVisible;
-        } catch (Exception e) {
+            return element.isDisplayed();
+        } catch (Exception e){
             return false;
         }
     }

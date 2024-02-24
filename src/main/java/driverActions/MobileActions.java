@@ -34,8 +34,4 @@ public class MobileActions {
         element.sendKeys(text);
         ((AndroidDriver) this.driver).hideKeyboard();
     }
-
-    public void pressBackButton() {
-        driver.navigate().back();
-    }
 }
