@@ -18,4 +18,9 @@ public class CheckoutCompletionPage extends BasePage<CheckoutCompletionPage> {
     public void verifyCheckoutCompletionIsShowing() {
         Assert.assertTrue(elementMethods.isElementVisible(checkoutCompletionContainer));
     }
+
+    @Override
+    public void waitPage() {
+        System.out.println("User is in checkout completion page now");
+    }
 }

@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 import pages.BasePage;
+import pages.CheckoutCompletionPage.CheckoutCompletionPage;
 
 public class CheckoutPreviewPage extends BasePage<CheckoutPreviewPage> {
     @FindBy(css = "[class*='summary_info_label summary_total_label']")
@@ -41,13 +42,15 @@ public class CheckoutPreviewPage extends BasePage<CheckoutPreviewPage> {
         Assert.assertEquals(subTotalPrice, priceOnCheckoutPreview);
     }
 
-    public void clickFinishButton() {
+    public CheckoutCompletionPage clickFinishButton() {
         mobileActions.click(finishButton);
+        return new CheckoutCompletionPage(driver);
     }
 
     @Override
     public void waitPage() {
         DriverWaiter driverWaiter = new DriverWaiter(driver, 2);
         driverWaiter.waitForVisibilityOf(summaryTotalPrice);
+        System.out.println("User is in checkout preview page now");
     }
 }

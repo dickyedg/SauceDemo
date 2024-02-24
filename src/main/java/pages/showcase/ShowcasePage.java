@@ -9,6 +9,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
+import pages.cart.CartPage;
+import pages.item.ItemDetailsPage;
 
 @Getter
 @Setter
@@ -28,19 +30,22 @@ public class ShowcasePage extends BasePage<ShowcasePage> {
         super(driver);
     }
 
-    public void clickOnProductNameOnIndex(int index) {
+    public ItemDetailsPage clickOnProductNameOnIndex(int index) {
         productNameIdentifier = "(//div[@id=\"inventory_container\"])[2]/div/div["+ index + "]/div[2]/div[1]/a/div";
         WebElement productNameElement = driver.findElement(By.xpath(productNameIdentifier));
         mobileActions.click(productNameElement);
+        return new ItemDetailsPage(driver);
     }
 
-    public void clickOnShoppingCartButton() {
+    public CartPage clickOnShoppingCartButton() {
         mobileActions.click(shoppingCartButton);
+        return new CartPage(driver);
     }
 
     @Override
     public void waitPage() {
         DriverWaiter driverWaiter = new DriverWaiter(driver, 3);
         driverWaiter.waitForVisibilityOf(productShowcaseContainer);
+        System.out.println("User is in showcase page now");
     }
 }

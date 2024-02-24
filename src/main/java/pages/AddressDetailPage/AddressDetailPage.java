@@ -5,6 +5,7 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
+import pages.CheckoutPreviewPage.CheckoutPreviewPage;
 
 public class AddressDetailPage extends BasePage<AddressDetailPage> {
     @FindBy(id = "first-name")
@@ -30,8 +31,9 @@ public class AddressDetailPage extends BasePage<AddressDetailPage> {
         super(driver);
     }
 
-    public void clickContinueButton() {
+    public CheckoutPreviewPage clickContinueButton() {
         mobileActions.click(continueButton);
+        return new CheckoutPreviewPage(driver);
     }
 
     public void fillInAddressDetails() {
@@ -44,5 +46,6 @@ public class AddressDetailPage extends BasePage<AddressDetailPage> {
     public void waitPage() {
         DriverWaiter driverWaiter = new DriverWaiter(driver, 2);
         driverWaiter.waitForVisibilityOf(addressDetailContainer);
+        System.out.println("User is in address detail page now");
     }
 }

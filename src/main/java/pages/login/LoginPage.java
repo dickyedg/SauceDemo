@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
+import pages.showcase.ShowcasePage;
 
 @Getter
 @Setter
@@ -25,11 +26,13 @@ public class LoginPage extends BasePage<LoginPage> {
         super(driver);
     }
 
-    public void clickOnLoginButton() {
+    public ShowcasePage clickOnLoginButton() {
         mobileActions.click(loginButton);
+        return new ShowcasePage(driver);
     }
 
     public void fillLoginDetails(String username, String password) {
+        waitPage();
         mobileActions.sendKeys(usernameField, username);
         mobileActions.sendKeys(passwordField, password);
     }
@@ -38,5 +41,6 @@ public class LoginPage extends BasePage<LoginPage> {
     public void waitPage() {
         DriverWaiter driverWaiter = new DriverWaiter(driver, 2);
         driverWaiter.waitForVisibilityOf(loginButton);
+        System.out.println("User is in login page now");
     }
 }

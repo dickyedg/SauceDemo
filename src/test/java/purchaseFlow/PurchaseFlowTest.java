@@ -11,24 +11,24 @@ public class PurchaseFlowTest extends TestBase {
         final int TOTAL_ITEMS_TO_ADD = 2;
 
         pages.loginPage().fillLoginDetails(username, password);
-        pages.loginPage().clickOnLoginButton();
+        pages.loginPage().clickOnLoginButton().waitLoaded();
 
         for(int i = 1 ; i <= TOTAL_ITEMS_TO_ADD; i++) {
-            pages.showcasePage().clickOnProductNameOnIndex(i);
+            pages.showcasePage().clickOnProductNameOnIndex(i).waitLoaded();
             pages.itemDetailsPage().clickAddToCart();
-            pages.itemDetailsPage().tapBackButton();
+            pages.itemDetailsPage().tapBackButton().waitLoaded();
         }
 
-        pages.showcasePage().clickOnShoppingCartButton();
+        pages.showcasePage().clickOnShoppingCartButton().waitLoaded();
         pages.cartPage().verifyTotalItems(TOTAL_ITEMS_TO_ADD);
         double totalPriceInCart = pages.cartPage().calculateAllPrices();
-        pages.cartPage().clickCheckoutButton();
+        pages.cartPage().clickCheckoutButton().waitLoaded();
 
         pages.addressDetailPage().fillInAddressDetails();
-        pages.addressDetailPage().clickContinueButton();
+        pages.addressDetailPage().clickContinueButton().waitLoaded();
         pages.checkoutPreviewPage().verifySubTotalPriceMatchedWithCartPrice(totalPriceInCart);
         pages.checkoutPreviewPage().verifyTotalPrices();
-        pages.checkoutPreviewPage().clickFinishButton();
+        pages.checkoutPreviewPage().clickFinishButton().waitLoaded();
 
         pages.checkoutCompletionPage().verifyCheckoutCompletionIsShowing();
     }

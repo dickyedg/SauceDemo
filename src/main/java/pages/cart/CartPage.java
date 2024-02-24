@@ -6,7 +6,9 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
+import pages.AddressDetailPage.AddressDetailPage;
 import pages.BasePage;
+import pages.CheckoutPreviewPage.CheckoutPreviewPage;
 
 import java.util.List;
 
@@ -42,13 +44,15 @@ public class CartPage extends BasePage<CartPage> {
         Assert.assertEquals(cartItemsContainer.size(), expectedTotalItems);
     }
 
-    public void clickCheckoutButton() {
+    public AddressDetailPage clickCheckoutButton() {
         mobileActions.click(checkoutButton);
+        return new AddressDetailPage(driver);
     }
 
     @Override
     public void waitPage() {
         DriverWaiter driverWaiter = new DriverWaiter(driver, 2);
         driverWaiter.waitForVisibilityOf(itemNames);
+        System.out.println("User is in cart page now");
     }
 }

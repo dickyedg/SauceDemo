@@ -20,19 +20,4 @@ public class BasePage<PAGE extends BasePage> implements IPageConstructor<PAGE> {
         waiter = new DriverWaiter(driver);
         elementMethods = new MobileElementMethods(driver);
     }
-
-    /*
-    Method can be used for a page that takes a long time to load
-     */
-    public BasePage(AppiumDriver driver, WaitDuration waitPageDuration) {
-        this.driver = driver;
-        initElements(driver, waitPageDuration);
-
-        mobileActions = new MobileActions(driver);
-        waiter = new DriverWaiter(driver);
-        elementMethods = new MobileElementMethods(driver);
-    }
-
-    @Override
-    public AppiumDriver getAppiumDriver() { return this.driver; }
 }
