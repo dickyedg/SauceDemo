@@ -23,10 +23,6 @@ public class AddressDetailPage extends BasePage<AddressDetailPage> {
     @FindBy(id = "continue")
     public WebElement continueButton;
 
-    final String FIRST_NAME = "testFirstName";
-    final String LAST_NAME = "testLastName";
-    final String POSTALCODE = "13111";
-
     public AddressDetailPage(AppiumDriver driver) {
         super(driver);
     }
@@ -36,10 +32,10 @@ public class AddressDetailPage extends BasePage<AddressDetailPage> {
         return new CheckoutPreviewPage(driver);
     }
 
-    public void fillInAddressDetails() {
-        mobileActions.sendKeys(firstNameField, FIRST_NAME);
-        mobileActions.sendKeys(lastNameField, LAST_NAME);
-        mobileActions.sendKeys(postalCodeField, POSTALCODE);
+    public void fillInAddressDetails(String firstName, String lastName, String postalCode) {
+        mobileActions.sendKeys(firstNameField, firstName);
+        mobileActions.sendKeys(lastNameField, lastName);
+        mobileActions.sendKeys(postalCodeField, postalCode);
     }
 
     @Override

@@ -2,11 +2,17 @@
   "userDetails" : [
     {
       "username" : "standard_user",
-      "password" : "secret_sauce"
+      "password" : "secret_sauce",
+      "firstName" : "Gojou",
+      "lastName" : "Satoru",
+      "postalcode" : "10000"
     },
     {
       "username" : "visual_user",
-      "password" : "secret_sauce"
+      "password" : "secret_sauce",
+      "firstName" : "Nanami",
+      "lastName" : "Kento",
+      "postalcode" : "10001"
     }
   ]
 }

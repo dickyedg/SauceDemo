@@ -2,7 +2,11 @@ package dataProvider;
 
 import Util.JSONUtil;
 import com.fasterxml.jackson.databind.JsonNode;
+import model.UserDetails;
 import org.testng.annotations.DataProvider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDataProvider {
 
@@ -17,17 +21,32 @@ public class UserDataProvider {
     @DataProvider(name = "UserDataProvider")
     public Object[][] getUserDataProvider() {
         JsonNode userJsonNode = jsonUtil.readJSONFromFile(userFileName).get("userDetails");
-        // Create DataProvider array
-        Object[][] dataProviderArray = new Object[userJsonNode.size()][2];
 
-        // Iterate over JSON array and populate DataProvider array
-        int index = 0;
+        List<UserDetails> userDetailsList = constructListOfUserDetails(userJsonNode);
+
+        return constructUserDataProvider(userDetailsList);
+    }
+
+    private List<UserDetails> constructListOfUserDetails(JsonNode userJsonNode) {
+        List<UserDetails> userDetailsList = new ArrayList<>();
+
         for (JsonNode userNode : userJsonNode) {
-            String username = userNode.get("username").asText();
-            String password = userNode.get("password").asText();
-            dataProviderArray[index][0] = username;
-            dataProviderArray[index][1] = password;
-            index++;
+            UserDetails userDetails = new UserDetails();
+            userDetails.setUsername(userNode.get("username").asText());
+            userDetails.setPassword(userNode.get("password").asText());
+            userDetails.setFirstName(userNode.get("firstName").asText());
+            userDetails.setLastName(userNode.get("lastName").asText());
+            userDetails.setZipcode(userNode.get("postalcode").asText());
+            userDetailsList.add(userDetails);
+        }
+
+        return userDetailsList;
+    }
+
+    private Object[][] constructUserDataProvider(List<UserDetails> userDetailsList) {
+        Object[][] dataProviderArray = new Object[userDetailsList.size()][1];
+        for(int i = 0; i < userDetailsList.size(); i++) {
+            dataProviderArray[i][0] = userDetailsList.get(i);
         }
 
         return dataProviderArray;
